@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id Int @id @default(autoincrement())
+  full_name String @db.VarChar(64)
+  age Int
+  profile_picture String
+  bio String
+  gender optionGender
+  hobbies optionHobbies
+  subscription optionSub
+  // language_proficiency optionLanguage
+}
+
+model fields {
+  id Int @id @default(autoincrement())
+  field_name String
+  field_type String
+  field_label String
+  filed_option String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+} 
+
+enum optionGender{
+  Male
+  Female
+  Other
+}
+
+enum optionSub{
+  Basic 
+  Premium
+}
+
+enum optionHobbies{
+  Traveling
+  Music
+  Olahraga
+}
+
+// enum optionLanguage{
+//   Indonesia 
+//   English
+//   China
+//   Thailand
+// }
