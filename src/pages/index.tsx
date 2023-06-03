@@ -88,20 +88,20 @@ const Index = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={(e) => handlePost(e)}>
+    <div className='flex justify-center items-center h-screen'>
+      <form className='shadow-md rounded-md px-12 py-2' onSubmit={(e) => handlePost(e)}>
       {
         data?.fields?.map((res:any, index:number) => {
           const atributInput = res?.field_type === 'text' || res?.field_type === 'number' || res?.field_type === 'file' || res?.field_type === 'radio' || res?.field_type === 'checkbox'
           // const attributTextArea = res?.field_type === 'textarea'
           const isOption = res?.field_name === 'gender' || res?.field_name === 'subscription' || res?.field_name === 'hobbies'
           return (
-          <div key={index}>
+          <div key={index} className='flex flex-col mb-3'>
             { 
               atributInput ? 
               (
                 <>
-                <label>{res?.field_label}</label>
+                <label className='mb-2'>{res?.field_label}</label>
                 {
                   isOption?
                   <>
@@ -109,7 +109,7 @@ const Index = () => {
                   res?.field_name === 'gender' && (
                   data?.genders?.map((respon:any, index:number) => (
                     <div key={index}>
-                      {respon.gender}
+                      <label className='mr-2'>{respon.gender}</label>
                       <input 
                       onChange={(e) => handleChangeInput(e, res.field_name)}
                       name='gender'
@@ -121,8 +121,8 @@ const Index = () => {
                   {
                   res?.field_name === 'subscription' && (
                   data?.subscriptions?.map((respon:any, index:number) => (
-                    <div key={index}>
-                      {respon.sub}
+                    <div key={index} className='flex'>
+                      <label className='mr-2'>{respon.sub}</label>
                       <input 
                       name='subscription'
                       onChange={(e) => handleChangeInput(e, res.field_name)}
@@ -135,18 +135,19 @@ const Index = () => {
                   res?.field_name === 'hobbies' && (
                   data?.hobbi?.map((respon:any, index:number) => (
                     <div key={index}>
-                      {respon.hob}
                       <input 
                       name='hobbies'
                       onChange={(e) => handleChangeInput(e, res.field_name)}
                       type={res?.field_type} 
                       placeholder={res.field_name}
                       />
+                      <label className='ml-2'>{respon.hob}</label>
                     </div>
                   )))}
                   </>
                   :
-                  <input 
+                  <input
+                  className='p-2 border-2 rounded-md focus:outline-none focus:outline-blue-400' 
                   onChange={(e) => handleChangeInput(e, res.field_name)}
                   type={res?.field_type} 
                   placeholder={res.field_name}
@@ -157,7 +158,7 @@ const Index = () => {
               :
               (
                 <>
-                <textarea placeholder={res.field_name}  onChange={({target}) => setDataUser({...dataUser, bio: target.value})}/>
+                <textarea className='p-2 border-2 rounded-md focus:outline-none focus:outline-blue-400' placeholder={res.field_name}  onChange={({target}) => setDataUser({...dataUser, bio: target.value})}/>
                 </>
               )
             }
@@ -165,8 +166,8 @@ const Index = () => {
           )
         })
       }
-            <button type='submit'>send</button>
-            </form>
+      <button className='py-2 px-4 bg-blue-400 rounded-md text-white' type='submit'>send</button>
+      </form>
     </div>
   )
 }
